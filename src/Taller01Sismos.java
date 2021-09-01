@@ -1,17 +1,19 @@
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Taller01Sismos {
     public static void main(String[] args) {
+        double[][] sismos= new double[7][10];
+        MostrarMenu(sismos);
 
     }
-    public static void MostrarMenu(){
-        double[][] sismos= new double[7][10];
+    public static void MostrarMenu(double[][] arreglo){
         System.out.println("[0] Ingresar datos");
         System.out.println("[1] Mostrar sismos de mayor magnitud");
         System.out.println("[2] Contar sismos mayores o iguales a 5.0");
-        System.out.println("[3] Enviar SMS por vasa sismo mayor o igual a 7.0");
+        System.out.println("[3] Enviar SMS por cada sismo mayor o igual a 7.0");
         System.out.println("[4] Salir");
-        OpcionesMenu(sismos);
+        OpcionesMenu(arreglo);
 
         }
 
@@ -20,33 +22,79 @@ public class Taller01Sismos {
         switch (validar(4)){
             case 0:
                 GenerarArreglo(arreglo);
+                MostrarMenu(arreglo);
                 break;
             case 1:
+                BuscarMayorSismo(arreglo);
+                MostrarMenu(arreglo);
                 break;
             case 2:
                 contarSismos(arreglo);
+                MostrarMenu(arreglo);
                 break;
             case 3:
+                EnviarSMS(arreglo);
+                MostrarMenu(arreglo);
                 break;
             case 4:
+                Salir(arreglo);
 
         }
     }
 
-    private static void contarSismos(double[][] arreglo) {
+    public static void EnviarSMS(double[][] arreglo) {
+        for (int i=0;i<arreglo.length;i++) {
+            for (int j = 0; j < arreglo[i].length; j++) {
+                if (arreglo[i][j]>7){
+                    System.out.println("Alerta!!! se debe evacuar zona costera!");
+                }
+            }
+        }
+
+    }
+
+    public static void Salir(double[][] arreglo) {
+        System.out.println("Desea salir? [1]Si [2]No");
+        if (validar(2)==2){
+            MostrarMenu(arreglo);
+        }
+    }
+
+    public static void BuscarMayorSismo(double[][] arreglo) {
+        double mayor =0;
+        String pattern = "#.#";
+        DecimalFormat decimalFormat =  new DecimalFormat(pattern);
         for (int i=0;i<arreglo.length;i++){
             for (int j=0;j<arreglo[i].length;j++){
-                if (arreglo[i][j]<5.0){
-                    
+                if (arreglo[i][j]>mayor){
+                    mayor=arreglo[i][j];
+                }
+            }
+        }
+        String formattedDouble = decimalFormat.format(mayor);
+        System.out.print("["+formattedDouble+"]");
+
+
+    }
+
+    public static void contarSismos(double[][] arreglo) {
+        String pattern = "#.#";
+        DecimalFormat decimalFormat =  new DecimalFormat(pattern);
+        for (int i=0;i<arreglo.length;i++){
+            for (int j=0;j<arreglo[i].length;j++){
+                if (arreglo[i][j]>5.0){
+                    String formattedDouble = decimalFormat.format(arreglo[i][j]);
+                    System.out.print("["+formattedDouble+"]");
+                    System.out.println();
                 }
             }
         }
     }
 
-    private static void GenerarArreglo(double[][] arreglo) {
+    public static void GenerarArreglo(double[][] arreglo) {
         for (int i=0;i<arreglo.length;i++){
             for (int j=0;j<arreglo[i].length;j++){
-                arreglo[i][j]=Math.random()*10;
+                arreglo[i][j]=(Math.random()*10);
             }
         }
     }
