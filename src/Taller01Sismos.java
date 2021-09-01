@@ -15,8 +15,7 @@ public class Taller01Sismos {
         System.out.println("[4] Salir");
         OpcionesMenu(arreglo);
 
-        }
-
+    }
 
     public static void OpcionesMenu(double[][] arreglo) {
         switch (validar(4)){
@@ -73,8 +72,7 @@ public class Taller01Sismos {
         }
         String formattedDouble = decimalFormat.format(mayor);
         System.out.print("["+formattedDouble+"]");
-
-
+        System.out.println();
     }
 
     public static void contarSismos(double[][] arreglo) {
@@ -92,9 +90,14 @@ public class Taller01Sismos {
     }
 
     public static void GenerarArreglo(double[][] arreglo) {
+        String pattern = "#.#";
+        DecimalFormat decimalFormat =  new DecimalFormat(pattern);
         for (int i=0;i<arreglo.length;i++){
             for (int j=0;j<arreglo[i].length;j++){
                 arreglo[i][j]=(Math.random()*10);
+                String formattedDouble = decimalFormat.format(arreglo[i][j]);
+                System.out.print("["+formattedDouble+"]");
+                System.out.println();
             }
         }
     }
@@ -114,23 +117,6 @@ public class Taller01Sismos {
                 System.out.println("ingrese un numero valido");
             }
         } while (n < 0 || n > x);
-        return n;
-    }
-    public static int validarint() {
-        int n = -1;
-        do {
-            //Scanner ponerlo dentro del DO, y dentro de una funcion
-            Scanner teclado = new Scanner(System.in);
-            //System.out.println("ingrese otro numero");
-            try {
-                n = teclado.nextInt();
-            } catch (Exception e) {
-                System.out.println("Error");
-            }
-            if (n < 0 ) {
-                System.out.println("ingrese un numero valido");
-            }
-        } while (n < 0 );
         return n;
     }
 
