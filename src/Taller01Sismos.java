@@ -5,7 +5,6 @@ public class Taller01Sismos {
     public static void main(String[] args) {
         double[][] sismos= new double[7][10];
         MostrarMenu(sismos);
-
     }
     public static void MostrarMenu(double[][] arreglo){
         System.out.println("[0] Ingresar datos");
@@ -14,7 +13,6 @@ public class Taller01Sismos {
         System.out.println("[3] Enviar SMS por cada sismo mayor o igual a 7.0");
         System.out.println("[4] Salir");
         OpcionesMenu(arreglo);
-
     }
 
     public static void OpcionesMenu(double[][] arreglo) {
@@ -24,15 +22,21 @@ public class Taller01Sismos {
                 MostrarMenu(arreglo);
                 break;
             case 1:
-                BuscarMayorSismo(arreglo);
+                if (validarsismos(arreglo)){
+                    BuscarMayorSismo(arreglo);
+                }
                 MostrarMenu(arreglo);
                 break;
             case 2:
-                contarSismos(arreglo);
+                if (validarsismos(arreglo)){
+                    contarSismos(arreglo);
+                }
                 MostrarMenu(arreglo);
                 break;
             case 3:
-                EnviarSMS(arreglo);
+                if (validarsismos(arreglo)){
+                    EnviarSMS(arreglo);
+                }
                 MostrarMenu(arreglo);
                 break;
             case 4:
@@ -118,6 +122,16 @@ public class Taller01Sismos {
             }
         } while (n < 0 || n > x);
         return n;
+    }
+
+    public static boolean validarsismos(double[][] arreglo){
+        if (arreglo==null){
+            return false;
+        }else {
+            return true;
+        }
+
+
     }
 
 }
